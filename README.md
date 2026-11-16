@@ -3,7 +3,7 @@ FlexfMRI is a python pipeline to preprocess rs-fMRI images. The repository inclu
 
 
 ## The Pipeline
-The preprocessing includes:
+The preprocessing includes:  
 1.   
 2.   
 3.   
