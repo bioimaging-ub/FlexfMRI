@@ -3,9 +3,6 @@
 # makes choices what methods to run
 # controls if files are deleted in the end
 
-#Marc Biosca BIDS 1
-#Marina Mas Argemí A4_LEARN_BIDS
-
 subject_list: '/pool/home/AD_Multimodal/Estudio_A4/CSVs/longitudinal/subjects_missing_to_preprocess.csv'
 # takes as input a csv that names subjects and sessions to be run. Put in in the same directory as main_function.py. 
 
