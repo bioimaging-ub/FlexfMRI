@@ -1,0 +1,35 @@
+# =============================================================================
+# CONFIG
+# =============================================================================
+path_pool : '/pool/home/AD_Multimodal/Estudio_A4'
+
+path_csv :  '/pool/home/AD_Multimodal/Estudio_A4/CSVs/longitudinal/6781_subjects_to_qc_1directory.csv')
+
+path_missing = '/pool/home/AD_Multimodal/Estudio_A4/CSVs/longitudinal/missing_subjects_qc.csv'
+
+path_BIDS = os.path.join(path_pool, '0_A4/A4_BIDS')
+path_derivatives = os.path.join(path_BIDS, 'fmri_slicetiming_outputderivatives_v2')
+
+path_template = os.path.join(path_pool, 'templates/MNI152_T1_3.3mm_brain.nii.gz')
+
+path_gwd = '/pool/home/AD_Multimodal/Estudio_A4/codes_marina/qc_reports_final'
+
+os.chdir(os.path.join(path_derivatives,'rs_preproc'))
+
+path_files = os.getcwd()
+
+save = True
+save_threshold = True
+
+
+thres = True
+
+problematic_subjects = None
+
+
+df_subjects = pd.read_csv(path_csv) 
+df_missing = pd.read_csv(path_missing)
+
+thresholds = {"FD_mean": 0.458, "FD_max": 2.599, "GM_lower": 0.171, "GM_upper": 0.312,
+                "WM_lower": 0.341, "WM_upper": 0.463, "CSF_lower": 0.31,
+                "CSF_upper": 0.402, "Total_lower": 719936, "Total_upper": 1320292}
