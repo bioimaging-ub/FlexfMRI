@@ -4,11 +4,11 @@ FlexfMRI is a python pipeline to preprocess rs-fMRI images. The repository inclu
 
 ## The Pipeline
 The preprocessing includes:
-1. 
-2. 
-3. 
-4. 
-5. 
+1.   
+2.   
+3.   
+4.   
+5.   
 
 
 The QC includes:
