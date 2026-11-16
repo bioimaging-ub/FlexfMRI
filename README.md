@@ -2,7 +2,6 @@
 *FlexfMRI* is a python-based pipeline to preprocess rs-fMRI images and perform Quality Control (QC) of the preprocessed images.  
 
 
-
 ## Overview of the repository
 FlexfMRI consists of two main steps: Preprocessing and Quality Control.
 
@@ -29,4 +28,4 @@ The input images must be organized following a BIDS-like directory structure. Th
 
 
 ## Configuration
-The config.yaml enables the user to set some important configurations to run the preprocessing and the qc.
+The `config.yaml` enables the user to set some important configurations to run the preprocessing and the qc.
