@@ -44,11 +44,13 @@ The input list must be a .csv file with columns:
 - `subject`: sub-BID of the subject (example: sub-B001)
 - `session`: session of the subject (example: ses-001)
 - `inter_leaved` (True/False): boolean indicating if the acquisition is interleaved (True) or not (False)
-- `start_value` (int): number of the time the first slice was acquired (0 if it was at time 0, or TR/2 if it was in the middle) *TR = time repetition
+- `start_value` (int): number of the time the first slice was acquired (0 if it was at time 0, or TR/2 if it was in the middle)
+*TR = time repetition
 
 ### Quality Control input list
 The input list must be a .csv with columns:
 - `subject`: sub-BXXX of the subjects
 - `session`: ses-XX of the acquisition
-- `rspreproc_path`: path of the final image obtained in the preprocessing pipeline (/BIDS_directory/derivatives/rs_preproc/sub-BXXX/ses-XXX/sub-BXXX_ses-XXX_task-rest_bold_desc-ts-mc-cleaned-highpass-final-reg-template.nii.gz)
+- `rspreproc_path`: path of the final image obtained in the preprocessing pipeline  
+   (/BIDS_directory/derivatives/rs_preproc/sub-BXXX/ses-XXX/sub-BXXX_ses-XXX_task-rest_bold_desc-ts-mc-cleaned-highpass-final-reg-template.nii.gz)
 
