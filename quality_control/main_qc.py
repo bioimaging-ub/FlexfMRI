@@ -8,11 +8,37 @@ Created on Thu Mar 19 10:35:18 2026
 Main code for QC
 
 """
+
+import yaml
+
+def load_config(config_file):  # loads the config file
+    with open(config_file, 'r') as f:
+        config = yaml.safe_load(f)
+    return config
+
+config = load_config('/pool/home/AD_Multimodal/Estudio_A4/codes_marina/Scripts_Preproc_Homebrew/config_slicetiming_v2_A4_longitudinal.yaml')
+
+path_pool = config['path_pool']
+path_csv = config['path_subjects']
+path_BIDS = config['path_BIDS']
+path_derivatives = config['path_derivatives']
+path_template = config['path_template']
+
+save_rejected = config['save_rejected']
+save_threhsold = config['save_threshold']
+
+automatic_thresholds = config['automatic_thresholds']
+thresholds = config['thresholds']
+
+
+
+
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import sys
 sys.path.append('/pool/home/AD_Multimodal/Estudio_A4/codes_marina/qc_reports_final')
+
 
 from functions.qc_extract_voxels_data import create_directory, QCmetrics, integrate_dataframe
 from functions.qQC import compute_automatic_thresholds, reject_subjects
@@ -20,25 +46,31 @@ from functions.FT import process_subject, process_time_series, compute_slice_cor
 from functions.reports import *
 from functions.review_html import *
 
+
 import os
 import pandas as pd
 import numpy as np
 import json
 
+
+
+
 # =============================================================================
 # CONFIG
 # =============================================================================
-path_pool = '/pool/home/AD_Multimodal/Estudio_A4'
+# path_pool = '/pool/home/AD_Multimodal/Estudio_A4'
 
-path_csv = os.path.join(path_pool, 'CSVs/longitudinal/6781_subjects_to_qc_1directory.csv')
-path_missing = '/pool/home/AD_Multimodal/Estudio_A4/CSVs/longitudinal/missing_subjects_qc.csv'
+# path_csv = os.path.join(path_pool, 'CSVs/longitudinal/6781_subjects_to_qc_1directory.csv')
+# path_missing = '/pool/home/AD_Multimodal/Estudio_A4/CSVs/longitudinal/missing_subjects_qc.csv'
 
-path_BIDS = os.path.join(path_pool, '0_A4/A4_BIDS')
-path_derivatives = os.path.join(path_BIDS, 'fmri_slicetiming_outputderivatives_v2')
+# path_BIDS = os.path.join(path_pool, '0_A4/A4_BIDS')
+# path_derivatives = os.path.join(path_BIDS, 'fmri_slicetiming_outputderivatives_v2')
 
-path_template = os.path.join(path_pool, 'templates/MNI152_T1_3.3mm_brain.nii.gz')
+# path_template = os.path.join(path_pool, 'templates/MNI152_T1_3.3mm_brain.nii.gz')
 
-path_gwd = '/pool/home/AD_Multimodal/Estudio_A4/codes_marina/qc_reports_final'
+# path_gwd = '/pool/home/AD_Multimodal/Estudio_A4/codes_marina/qc_reports_final'
+
+path_gwd = os.getcwd()
 
 os.chdir(os.path.join(path_derivatives,'rs_preproc'))
 
@@ -48,13 +80,12 @@ save = True
 save_threshold = True
 
 
-thres = True
-
-problematic_subjects = None
+# thres = True
+# problematic_subjects = None
 
 
 df_subjects = pd.read_csv(path_csv) 
-df_missing = pd.read_csv(path_missing)
+# df_missing = pd.read_csv(path_missing)
 
 thresholds = {"FD_mean": 0.458, "FD_max": 2.599, "GM_lower": 0.171, "GM_upper": 0.312,
                 "WM_lower": 0.341, "WM_upper": 0.463, "CSF_lower": 0.31,
@@ -117,7 +148,7 @@ def run_qQC(df, automatic_thresholds):
     # df_subjects = df_subjects.merge(df_rejections[['BID','PASS']], on='BID', how = 'inner').rename(columns={'PASS':'qQC'})
     
     # Save the rejected subjects in a csv file
-    if save:
+    if save_rejected:
         # path_save_automatic_rejections = os.path.join(path_save_qc_outputs,'automatic_rejections.csv')
         df_rejections[df_rejections['Pass'] == False].to_csv('automatic_rejections.csv', index=False)
 
@@ -153,7 +184,7 @@ def run_FT(df):
             if os.path.exists(fig_path):
                 continue
             else:
-                process_subject(subject,session, output_folder, path_func) #????? I'M HERE
+                process_subject(subject,session, output_folder, path_func) 
     
                 ratios, widths, peaks0, peaks1, peaks2 = process_time_series(subject, path_func)
                 corr_stats = compute_slice_correlation_stats(path_func)
@@ -219,21 +250,21 @@ def create_reports(df_qQC, path_template):
 
 def main():
     
-    # df_subjects = pd.read_csv(path_csv)
-    df_subjects = df_subjects.merge(
-    df_missing[['subject', 'session']],
-    on=['subject', 'session'],
-    how='inner'
-    )
+    df_subjects = pd.read_csv(path_csv)
+    # df_subjects = df_subjects.merge(
+    # df_missing[['subject', 'session']],
+    # on=['subject', 'session'],
+    # how='inner'
+    # )
     
-    paths_rspreproc = df_subjects['rspreproc_path']
+    # paths_rspreproc = df_subjects['rspreproc_path']
     
     
     # A. QC METRICS
     df_qcmetrics = compute_qc_metrics(df_subjects)
 
     
-    automatic_thresholds = True
+    
     
     # #B. qQC: Threshold study
     df_rejections = run_qQC(df_qcmetrics,automatic_thresholds)
