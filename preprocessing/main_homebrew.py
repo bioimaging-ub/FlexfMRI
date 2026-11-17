@@ -787,10 +787,10 @@ def main():
             # path_base = row.path_base
             path_base = config['path_base']
             
-            if np.isnan(row.start_value_0):
+            if np.isnan(row.start_value):
                 first_slice = 0
             else:
-                first_slice = int(row.start_value_0)
+                first_slice = int(row.start_value)
 
             subj_label_slice_timing = row.subject_label_slice_timing
             
