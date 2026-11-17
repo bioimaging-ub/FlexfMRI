@@ -19,13 +19,12 @@ The QC includes:
 2. Visual QC: web-based application to cehck for registration and periodic errors.
 
 
-## Requirements
-FlexfMRI requires Python and ...
+## Repository structure
+The repository is organized in the following directories:
+### [preprocessing](docs/preprocessing)
+
 
 
 ## Input data structure
 The input images must be organized following a BIDS-like directory structure. The pipeline expects the functional images and their associated metadata to be organized by subject and session.
 
-
-## Configuration
-The `config.yaml` enables the user to set some important configurations to run the preprocessing and the qc.
