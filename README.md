@@ -48,7 +48,7 @@ The input list must be a .csv file with columns:
 
 ### Quality Control input list
 The input list must be a .csv with columns:
-- `subject``: sub-BXXX of the subjects
+- `subject`: sub-BXXX of the subjects
 - `session`: ses-XX of the acquisition
 - `rspreproc_path`: path of the final image obtained in the preprocessing pipeline (/BIDS_directory/derivatives/rs_preproc/sub-BXXX/ses-XXX/sub-BXXX_ses-XXX_task-rest_bold_desc-ts-mc-cleaned-highpass-final-reg-template.nii.gz)
 
